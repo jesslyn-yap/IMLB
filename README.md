@@ -1,6 +1,6 @@
-# IMLB
+# Prediction of transcription factor binding sites
 
-# Transcription Factor Binding Prediction – Project Overview
+# Project Overview
 
 This project predicts CTCF transcription factor binding on 200 bp DNA sequences in the GM12878 cell line, comparing CNN model with LightGBM.
 
@@ -13,7 +13,7 @@ This project predicts CTCF transcription factor binding on 200 bp DNA sequences 
 
 Binary classification task:
 
-> Given a 200 bp DNA sequence, predict whether CTCF binds to it.
+> Predict whether CTCF binds to a given 200 bp genomic bin.
 
 Two model types are implemented:
 
@@ -24,7 +24,9 @@ Two model types are implemented:
 
 ## 2. Dataset
 
-This dataset construction is i by the [ENCODE-DREAM Challenge](https://www.synapse.org/Synapse:syn6131484/wiki/402026) and [DeepGRN paper](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-020-03952-1)
+This dataset construction is inspired by:
+- [ENCODE-DREAM Challenge](https://www.synapse.org/Synapse:syn6131484/wiki/402026)
+- [DeepGRN paper](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-020-03952-1)
 
 
 Data sources:

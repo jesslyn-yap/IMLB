@@ -102,14 +102,12 @@ LightGBM is used for interpretability and speed on tabular genomic features.
 
 ### LightGBM
 
-Key parameters influencing regularization:
-
-* `max_depth`
-* `num_leaves`
-* `min_data_in_leaf`
-* `lambda_l1`, `lambda_l2`
-* `feature_fraction`
-* `bagging_fraction`, `bagging_freq`
+* max_depth
+* num_leaves
+* min_data_in_leaf
+* lambda_l1, lambda_l2
+* feature_fraction
+* bagging_fraction, bagging_freq
 
 Hyperparameter tuning improves generalization, especially due to heavy class imbalance.
 
@@ -129,5 +127,5 @@ Evaluation is done separately on validation and held-out test chromosomes.
 If time permits:
 
 * Single-task learning approach to predict other TF in GM12878
-* Incorporate k-mer embeddings or shallow CNN features into LightGBM
+* Incorporate k-mer embeddings into LightGBM
 * Add DNase-seq features

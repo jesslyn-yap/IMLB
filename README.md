@@ -24,6 +24,9 @@ Two model types are implemented:
 
 ## 2. Dataset
 
+This dataset construction is i by the [ENCODE-DREAM Challenge](https://www.synapse.org/Synapse:syn6131484/wiki/402026) and [DeepGRN paper](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-020-03952-1)
+
+
 Data sources:
 
 * CTCF optimal (IDR) peaks: [ENCFF710VEH](https://www.encodeproject.org/files/ENCFF710VEH/)

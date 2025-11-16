@@ -4,6 +4,9 @@
 
 This project predicts CTCF transcription factor binding on 200 bp DNA sequences in the GM12878 cell line, comparing CNN model with LightGBM.
 
+> **Status:** Work in Progress  
+> **Note:** This project is part of a course assignment. The code, analysis, and results are still evolving.
+
 ---
 
 ## 1. Machine Learning Task
@@ -23,9 +26,9 @@ Two model types are implemented:
 
 Data sources:
 
-* CTCF optimal (IDR) peaks: ENCFF710VEH
-* CTCF replicate 1: ENCFF256QBB
-* CTCF replicate 2: ENCFF307KRD
+* CTCF optimal (IDR) peaks: [ENCFF710VEH](https://www.encodeproject.org/files/ENCFF710VEH/)
+* CTCF replicate 1: [ENCFF256QBB](https://www.encodeproject.org/files/ENCFF256QBB/)
+* CTCF replicate 2: [ENCFF307KRD](https://www.encodeproject.org/files/ENCFF307KRD/)
 * Reference genome (hg19): UCSC download
 
 Labeling strategy:

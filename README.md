@@ -51,8 +51,7 @@ Labeling strategy:
 
 Train/validation/test split (chromosome-based):
 
-* Train: 2,3,4,5,6,7,8,9,10,11,12,13,15,16,17,18,20,22
-* Validation: 14, 19
+* Train/ Validation: 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22
 * Test: 1, 21
 
 ---

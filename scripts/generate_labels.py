@@ -1,7 +1,6 @@
 import pyranges as pr
 import os
 import pandas as pd
-import numpy as np
 
 def get_genome_sizes(fai_path):
     if not os.path.exists(fai_path):
@@ -93,7 +92,7 @@ def create_labeled_data(tf, fai_path, out_folder):
         all_df = pd.concat([pos_df, neg_df], ignore_index=True)
         all_df = all_df.sample(frac=1, random_state=42).reset_index(drop=True)
 
-        all_df.to_csv(f"{out_folder}/{tf}_labels.tsv", sep="\t", index=False)
+        all_df.to_csv(f"{out_folder}/{tf}_full_labels.tsv", sep="\t", index=False)
     else:
         print(f"{tf} labeled file already exists, skipping...")
 

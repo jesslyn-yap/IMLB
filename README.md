@@ -35,17 +35,19 @@ Data sources:
 * CTCF replicate 1: [ENCFF256QBB](https://www.encodeproject.org/files/ENCFF256QBB/)
 * CTCF replicate 2: [ENCFF307KRD](https://www.encodeproject.org/files/ENCFF307KRD/)
 * Reference genome (hg19): UCSC download
+* Blacklist regions (hg19): [ENCFF001TDO](https://www.encodeproject.org/files/ENCFF001TDO/)
+
+Genomic binning:
+
+* Remove bins that overlaps with the blacklist regions
+* Fixed bin size: 200 bp
+* Only chromosomes chr1–chr22
 
 Labeling strategy:
 
 * Positive = bins intersecting optimal (IDR) peaks
 * Ambiguous = intersect replicate peaks but not IDR → discarded
 * Negative = bins with no overlap with any replicate
-
-Genomic binning:
-
-* Fixed bin size: 200 bp
-* Only chromosomes chr1–chr22
 
 Train/validation/test split (chromosome-based):
 

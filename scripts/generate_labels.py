@@ -58,6 +58,7 @@ def create_labeled_data(tf, fai_path, out_folder):
     - Ambiguous: bins overlapping at least one replicate but not in the combined peaks.
     - Negative: all other bins (bins that do not overlap any peaks).
     Ambiguous bins are discarded from the final dataset.
+    Bins that overlap with ENCODE's blacklist region are discarded.
 
     Args:
         tf: Interested transcription factor
@@ -78,12 +79,15 @@ def create_labeled_data(tf, fai_path, out_folder):
         tf_combined = pr.read_bed(f"{tf}-bed/{tf}-bed_combined.bed")
         tf_1 = pr.read_bed(f"{tf}-bed/{tf}-bed_1.bed")
         tf_2 = pr.read_bed(f"{tf}-bed/{tf}-bed_2.bed")
+        blacklist = pr.read_bed("genome/consensusBlacklist.bed")
 
-        pos = bins.overlap(tf_combined)
+        bins_clean = bins.overlap(blacklist, invert=True)
+
+        pos = bins_clean.overlap(tf_combined)
         pos_df = pos.df.copy()
         pos_df["label"] = 1
 
-        neg = bins.overlap(tf_combined, invert=True)
+        neg = bins_clean.overlap(tf_combined, invert=True)
         neg = neg.overlap(tf_1, invert=True)
         neg = neg.overlap(tf_2, invert=True)
         neg_df = neg.df.copy()

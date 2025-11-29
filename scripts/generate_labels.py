@@ -65,7 +65,13 @@ def create_labeled_data(tf, fai_path, out_folder):
         fai_path: absolute path to .fai file
         out_folder: absolute path to output folder
     """
+
     bins_file = os.path.join(out_folder, "genome_bins.bed")
+    label_file = os.path.join(out_folder, f"{tf}_full_labels.tsv")
+
+    if os.path.exists(label_file):
+        print(f"{tf} labeled file already exists, skipping...")
+        return
 
     if not os.path.exists(bins_file):
         bins_df = get_bins(fai_path, out_folder)
@@ -73,32 +79,27 @@ def create_labeled_data(tf, fai_path, out_folder):
     else:
         bins = pr.read_bed(bins_file)
 
-    label_file = os.path.join(out_folder, f"{tf}_labelled.bed")
+    tf_combined = pr.read_bed(f"{tf}-bed/{tf}-bed_combined.bed")
+    tf_1 = pr.read_bed(f"{tf}-bed/{tf}-bed_1.bed")
+    tf_2 = pr.read_bed(f"{tf}-bed/{tf}-bed_2.bed")
+    blacklist = pr.read_bed("genome/consensusBlacklist.bed")
 
-    if not os.path.exists(label_file):
-        tf_combined = pr.read_bed(f"{tf}-bed/{tf}-bed_combined.bed")
-        tf_1 = pr.read_bed(f"{tf}-bed/{tf}-bed_1.bed")
-        tf_2 = pr.read_bed(f"{tf}-bed/{tf}-bed_2.bed")
-        blacklist = pr.read_bed("genome/consensusBlacklist.bed")
+    bins_clean = bins.overlap(blacklist, invert=True)
 
-        bins_clean = bins.overlap(blacklist, invert=True)
+    pos = bins_clean.overlap(tf_combined)
+    pos_df = pos.df.copy()
+    pos_df["label"] = 1
 
-        pos = bins_clean.overlap(tf_combined)
-        pos_df = pos.df.copy()
-        pos_df["label"] = 1
+    neg = bins_clean.overlap(tf_combined, invert=True)
+    neg = neg.overlap(tf_1, invert=True)
+    neg = neg.overlap(tf_2, invert=True)
+    neg_df = neg.df.copy()
+    neg_df["label"] = 0
 
-        neg = bins_clean.overlap(tf_combined, invert=True)
-        neg = neg.overlap(tf_1, invert=True)
-        neg = neg.overlap(tf_2, invert=True)
-        neg_df = neg.df.copy()
-        neg_df["label"] = 0
+    all_df = pd.concat([pos_df, neg_df], ignore_index=True)
+    all_df = all_df.sample(frac=1, random_state=42).reset_index(drop=True)
 
-        all_df = pd.concat([pos_df, neg_df], ignore_index=True)
-        all_df = all_df.sample(frac=1, random_state=42).reset_index(drop=True)
-
-        all_df.to_csv(f"{out_folder}/{tf}_full_labels.tsv", sep="\t", index=False)
-    else:
-        print(f"{tf} labeled file already exists, skipping...")
+    all_df.to_csv(f"{out_folder}/{tf}_full_labels.tsv", sep="\t", index=False)
 
     print("Labels generated")
 
